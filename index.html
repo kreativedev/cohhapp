@@ -10,6 +10,58 @@
     <link rel="stylesheet" type="text/css" href="appframework/af.ui.css" />
     <link rel="stylesheet" type="text/css" href="appframework/icons.css" />
     <script type="text/javascript" charset="utf-8" src="appframework/appframework.ui.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
+
+    <script>
+        window.CLIENT_ID = 'qdlmg8va4yavjkk1ow966dyccujenoi';
+        $(function() {
+            // Initialize. If we are already logged in, there is no
+            // need for the connect button
+            Twitch.init({clientId: CLIENT_ID}, function(error, status) {
+                if (status.authenticated) {
+                    // we're logged in :)
+                    $('.status input').val('Logged in! Allowed scope: ' + status.scope);
+                    // Show the data for logged-in users
+                    $('.authenticated').removeClass('hidden');
+                } else {
+                    $('.status input').val('Not Logged in! Better connect with Twitch!');
+                    // Show the twitch connect button
+                    $('.authenticate').removeClass('hidden');
+                }
+            });
+
+
+            $('.twitch-connect').click(function() {
+                Twitch.login({
+                    scope: ['user_read', 'channel_read'],
+                    redirect_uri: 'http://www.cohhilition.com/mobileauth.php'
+                    //popup: true
+                });
+            })
+
+            $('#logout button').click(function() {
+                Twitch.logout();
+
+                // Reload page and reset url hash. You shouldn't
+                // need to do this.
+                window.location = window.location.pathname
+            })
+
+            $('#get-name button').click(function() {
+                Twitch.api({method: 'user'}, function(error, user) {
+                    $('#get-name input').val(user.display_name);
+                });
+            })
+
+            $('#get-stream-key button').click(function() {
+                Twitch.api({method: 'channel'}, function(error, channel) {
+                    $('#get-stream-key input').val(channel.stream_key);
+                });
+            })
+
+        });
+    </script>
 
     
     <script>   
@@ -29,9 +81,26 @@
     <!--Tab View Pages-->
         <div class="panel" title="Home" id="page1" data-tab="tab1" selected="true">
             <header>
-                <h1>Home</h1>
+                <h1>The Cohhilition</h1>
             </header>
             <p>This is view for first Tab</p>
+
+            <div class="authenticate hidden">
+                <img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png" class="twitch-connect" href="#" />
+            </div>
+
+            <h2 class="authenticated hidden">Authenticated</h2>
+            <div class="authenticated hidden">
+                <div id="logout">
+                    <button>Log Out</button>
+                </div>
+
+                <div id="get-name">
+                    <button>Get TwitchTV Name</button>
+                    <input readonly="readonly" size="50" value="Unknown"/>
+                </div>
+            </div>
+
         </div>
         
         <div class="panel" title="Favorites" id="page2" data-tab="tab2">
