@@ -10,42 +10,33 @@
     <link rel="stylesheet" type="text/css" href="appframework/af.ui.css"/>
     <link rel="stylesheet" type="text/css" href="appframework/icons.css"/>
     <script type="text/javascript" charset="utf-8" src="appframework/appframework.ui.min.js"></script>
-    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
-    <script type="text/javascript" src="js/lib/cordova.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
     <script type="text/javascript" charset="utf-8">
-        // Audio player
-        //
+        document.addEventListener("deviceready", function () {
+            $("#btnYes").on("click", function () {
+                playAudio('https://dl.dropboxusercontent.com/u/626134/joker.wav');
+            });
+            $("#btnNo").on("click", function () {
+                playAudio(audio/basic/no.mp3);
+            });
+        }, false);
         var my_media = null;
         var mediaTimer = null;
-
-        // Play audio
-        //
         function playAudio(src) {
             // Create Media object from src
             my_media = new Media(src, onSuccess, onError);
-
             // Play audio
             my_media.play();
-
-            // Update my_media position every second
-            if (mediaTimer == null) {
-                mediaTimer = setInterval(function () {
-                    // get my_media position
-                    my_media.getCurrentPosition(
-                            // success callback
-                            function (position) {
-                                if (position > -1) {
-                                    setAudioPosition((position) + " sec");
-                                }
-                            },
-                            // error callback
-                            function (e) {
-                                console.log("Error getting pos=" + e);
-                                setAudioPosition("Error: " + e);
-                            }
-                    );
-                }, 1000);
-            }
+        }
+        // onSuccess Callback
+        function onSuccess() {
+            console.log("playAudio():Audio Success");
+        }
+        // onError Callback
+        function onError(error) {
+            alert('code: ' + error.code + '\n' +
+                    'message: ' + error.message + '\n');
         }
     </script>
 
@@ -69,7 +60,7 @@
                 <h1>The Cohhilition</h1>
             </header>
             <p>This is view for first Tab</p>
-            <a href="#" class="btn large" onclick="playAudio('https://dl.dropboxusercontent.com/u/626134/joker.wav');">Play Audio</a>
+            <button class="button" id="btnYes">Play</button>
 
         </div>
 
