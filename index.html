@@ -6,7 +6,7 @@
     This template can be used for simple tab view application that has tabs at the bottom to switch views, for applications like Phone app, Facebook App or Instagram app.
 --> 
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0;" />
-        
+
     <link rel="stylesheet" type="text/css" href="appframework/af.ui.css" />
     <link rel="stylesheet" type="text/css" href="appframework/icons.css" />
     <script type="text/javascript" charset="utf-8" src="appframework/appframework.ui.min.js"></script>
@@ -35,7 +35,7 @@
             $('.twitch-connect').click(function() {
                 Twitch.login({
                     scope: ['user_read', 'channel_read'],
-                    redirect_uri: 'http://www.cohhilition.com/mobileauth.php'
+                    redirect_uri: 'cohhilitionapp://index.html'
                     //popup: true
                 });
             })
