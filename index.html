@@ -12,7 +12,7 @@
     <script type="text/javascript" charset="utf-8" src="appframework/appframework.ui.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
-    <data android:scheme="cohhilitionapp"  android:host="*"/>
+
     <script>
         window.CLIENT_ID = 'qdlmg8va4yavjkk1ow966dyccujenoi';
         $(function() {
@@ -35,7 +35,7 @@
             $('.twitch-connect').click(function() {
                 Twitch.login({
                     scope: ['user_read', 'channel_read'],
-                    redirect_uri: 'cohhilitionapp://index.html'
+                    redirect_uri: 'cohhilitionapp://'
                     //popup: true
                 });
             })
