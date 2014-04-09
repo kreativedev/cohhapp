@@ -105,5 +105,5 @@
     -->
 
     <access origin="*" />
-    <data android:scheme="cohhilitionapp"  android:host="*"/>
+
 </widget>
